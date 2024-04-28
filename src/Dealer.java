@@ -43,7 +43,7 @@ public class Dealer {
 //    }
 
     public void printHand(boolean showAllCards) {
-        System.out.println("\nDealer's Hand:");
+        System.out.println("\nDealer's Hand Shows:");
         for (int i = 0; i < hand.size(); i++) {
             if (i == 0 && !showAllCards) {
                 System.out.println("Hidden Card");
@@ -53,6 +53,27 @@ public class Dealer {
             }
         }
         System.out.println("\n");
+    }
+
+    public int getHandValue() {
+        int value = 0;
+        int numAces = 0;
+
+        for (Card card : hand) {
+            value += card.getValue();
+            if (card.getRank().equals("ACE")) {
+                numAces++;
+            }
+        }
+
+        // Adjust for Aces
+        while (value > 21 && numAces > 0) {
+            value -= 10; // Convert an Ace from 11 to 1
+            numAces--;
+        }
+
+        System.out.println("Player's Hand Value: " + value);
+        return value;
     }
 
 
