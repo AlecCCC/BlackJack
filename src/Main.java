@@ -36,6 +36,7 @@ public class Main {
 
         dealer.printHand(false);
         player.printHand();
+        System.out.println("Player's Value: " + player.getHandValue() +"\n");
 
         while (true) {
             if (player.getHandValue() < 22) {
@@ -46,25 +47,27 @@ public class Main {
                 switch (choice) {
                     case "hit":
                         dealer.dealtoPlayer(player);
-
+                        System.out.println("Player stands at " + player.getHandValue());
                         break;
                     case "stand":
 
                         while (dealer.getHandValue() < 17) {
                             dealer.dealtoDealer(dealer);
                             if (dealer.getHandValue() > 21) {
+                                System.out.println("Player stands at " + player.getHandValue());
                                 System.out.println("Dealer busted. Player wins.");
                                 return;
                             }
                         }
 
-                        System.out.println("Dealer stands at " + dealer.getHandValue());
 
                         // Determine the winner
                         if (dealer.getHandValue() > player.getHandValue()) {
+                            System.out.println("Player stands at " + player.getHandValue());
                             System.out.println("Dealer stands at " + dealer.getHandValue());
                             System.out.println("Dealer wins");
                         } else if (dealer.getHandValue() < player.getHandValue()) {
+                            System.out.println("Player stands at " + player.getHandValue());
                             System.out.println("Dealer stands at " + dealer.getHandValue());
                             System.out.println("Player wins");
                         } else {

@@ -41,7 +41,6 @@ private ArrayList<Card> hand;
             numAces--;
         }
 
-        System.out.println("Player's Hand Value: " + value);
         return value;
     }
 
