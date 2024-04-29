@@ -52,7 +52,6 @@ public class Dealer {
                 System.out.println(card.getRank() + " of " + card.getSuit());
             }
         }
-        System.out.println("\n");
     }
 
     public int getHandValue() {
@@ -71,8 +70,6 @@ public class Dealer {
             value -= 10; // Convert an Ace from 11 to 1
             numAces--;
         }
-
-        System.out.println("Player's Hand Value: " + value);
         return value;
     }
 

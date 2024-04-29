@@ -2,73 +2,90 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String choice;
 
-    Deck deck = new Deck();
-    Player player = new Player();
-    Dealer dealer = new Dealer(deck);
-    Scanner input = new Scanner(System.in);
+        do {
+            playBlackjack(input);
+            System.out.println("Do you want to play again? (yes/no)");
+            choice = input.nextLine();
+        } while (choice.equalsIgnoreCase("yes"));
 
-    deck.shuffleDeck();
+        System.out.println("Thanks for playing!");
+    }
 
-        System.out.println("Welcome to Blackjack to play, type 'start'");
+    public static void playBlackjack(Scanner input) {
+        Deck deck = new Deck();
+        Player player = new Player();
+        Dealer dealer = new Dealer(deck);
 
+        deck.shuffleDeck();
+
+        System.out.println("Welcome to Blackjack. Type 'start' to begin.");
         String choice = input.nextLine();
 
-        if (choice.equalsIgnoreCase("start")) {
-            System.out.println("The dealer will start dealing cards.");
-        } else
+        if (!choice.equalsIgnoreCase("start")) {
+            System.out.println("Invalid choice. Exiting the game.");
             System.exit(1);
+        }
 
         dealer.dealtoDealer(dealer);
         dealer.dealtoPlayer(player);
         dealer.dealtoDealer(dealer);
         dealer.dealtoPlayer(player);
-
 
         dealer.printHand(false);
         player.printHand();
 
-        while (true){
+        while (true) {
+            if (player.getHandValue() < 22) {
+                System.out.println("Player can hit, double down, or stand");
+                choice = input.nextLine();
+                System.out.println("\n");
 
-        if (player.getHandValue() < 22) {
+                switch (choice) {
+                    case "hit":
+                        dealer.dealtoPlayer(player);
 
-            System.out.println("Player can hit, double down, stand");
+                        break;
+                    case "stand":
 
-            choice = input.nextLine();
+                        while (dealer.getHandValue() < 17) {
+                            dealer.dealtoDealer(dealer);
+                            if (dealer.getHandValue() > 21) {
+                                System.out.println("Dealer busted. Player wins.");
+                                return;
+                            }
+                        }
 
-           switch (choice){
-               case "hit":
-                   dealer.dealtoPlayer(player);
-                   player.printHand();
-                   break;
-               case "stand":
-                   break;
-           }
+                        System.out.println("Dealer stands at " + dealer.getHandValue());
 
+                        // Determine the winner
+                        if (dealer.getHandValue() > player.getHandValue()) {
+                            System.out.println("Dealer stands at " + dealer.getHandValue());
+                            System.out.println("Dealer wins");
+                        } else if (dealer.getHandValue() < player.getHandValue()) {
+                            System.out.println("Dealer stands at " + dealer.getHandValue());
+                            System.out.println("Player wins");
+                        } else {
+                            System.out.println("It's a tie");
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                        break;
+                }
+
+                if (choice.equalsIgnoreCase("stand")) {
+                    break;
+                }
+            } else {
+                System.out.println("Player busted. Dealer wins.");
+                return;
+            }
         }
-
-        }
-
-
-//    dealer.dealtoDealer(dealer);
-//    dealer.dealtoPlayer(player);
-//    dealer.dealtoDealer(dealer);
-//    dealer.dealtoPlayer(player);
-//
-//    deck.printDeck();
-//
-//    player.printHand();
-//    dealer.printHand(false);
-//
-//    player.printHand();
-//
-//    player.getHandValue();
-//    dealer.dealtoPlayer(player);
-//        player.printHand();
-//
-//    if (player.getHandValue() > 22) {
-//        System.out.println("Player Loses!");
-//    }
-
     }
 }
+
+
+

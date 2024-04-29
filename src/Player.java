@@ -17,7 +17,10 @@ private ArrayList<Card> hand;
         for (Card card : hand) {
             System.out.println(card.getRank() + " of " + card.getSuit());
         }
-        System.out.println("\n");
+    }
+
+    public void clearHand() {
+        hand.clear();
     }
 
 
