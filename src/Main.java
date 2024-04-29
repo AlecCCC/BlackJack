@@ -51,7 +51,7 @@ public class Main {
                         break;
                     case "stand":
 
-                        while (dealer.getHandValue() < 17) {
+                        while (dealer.getHandValue() <= 17) {
                             dealer.dealtoDealer(dealer);
                             if (dealer.getHandValue() > 21) {
                                 System.out.println("Player stands at " + player.getHandValue());
